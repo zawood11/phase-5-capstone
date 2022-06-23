@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :exercises
+  resources :workouts
+  resources :movements
   namespace :api do
     resources :recipes, only: [:index, :create]
     post "/signup", to: "users#create"

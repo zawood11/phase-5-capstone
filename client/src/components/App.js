@@ -7,7 +7,7 @@ import NewRecipe from "../pages/NewRecipe";
 
 function App() {
   const [user, setUser] = useState(null);
-
+  
   useEffect(() => {
     // auto-login
     fetch("/api/me").then((r) => {
@@ -18,6 +18,7 @@ function App() {
   }, []);
 
   if (!user) return <Login onLogin={setUser} />;
+
 
   return (
     <>
