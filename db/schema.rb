@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_23_022849) do
+ActiveRecord::Schema.define(version: 2022_06_27_182714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2022_06_23_022849) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["movement_id"], name: "index_exercises_on_movement_id"
     t.index ["workout_id"], name: "index_exercises_on_workout_id"
+  end
+
+  create_table "friendships", force: :cascade do |t|
+    t.bigint "requestor_id", null: false
+    t.bigint "recipient_id", null: false
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["recipient_id"], name: "index_friendships_on_recipient_id"
+    t.index ["requestor_id"], name: "index_friendships_on_requestor_id"
   end
 
   create_table "movements", force: :cascade do |t|
@@ -67,6 +77,8 @@ ActiveRecord::Schema.define(version: 2022_06_23_022849) do
 
   add_foreign_key "exercises", "movements"
   add_foreign_key "exercises", "workouts"
+  add_foreign_key "friendships", "users", column: "recipient_id"
+  add_foreign_key "friendships", "users", column: "requestor_id"
   add_foreign_key "recipes", "users"
   add_foreign_key "workouts", "users"
 end
