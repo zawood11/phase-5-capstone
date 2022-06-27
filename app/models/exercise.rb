@@ -1,6 +1,6 @@
 class Exercise < ApplicationRecord
-    t.belongs_to :workout
-    t.belongs_to :movement
+    belongs_to :workout
+    belongs_to :movement
 
     validates :sets, presence: true
     validates :reps, presence: true
