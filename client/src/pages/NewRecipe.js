@@ -82,11 +82,11 @@ function NewRecipe({ user }) {
               {isLoading ? "Loading..." : "Submit Recipe"}
             </Button>
           </FormField>
-          <FormField>
+          {/* <FormField>
             {errors.map((err) => (
               <Error key={err}>{err}</Error>
             ))}
-          </FormField>
+          </FormField> */}
         </form>
       </WrapperChild>
       <WrapperChild>

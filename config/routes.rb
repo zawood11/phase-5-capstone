@@ -1,14 +1,21 @@
 Rails.application.routes.draw do
+
   resources :friendships
   resources :exercises
   resources :workouts
   resources :movements
+
+
+
   namespace :api do
     resources :recipes, only: [:index, :create]
+    post 'auth/:provider/callback', to: 'sessions#google_auth'
     post "/signup", to: "users#create"
     get "/me", to: "users#show"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
+
+    
   end
   # all other routes will be load our React application
   # this route definition matches:

@@ -8,13 +8,33 @@ import jwt_decode from "jwt-decode";
 function Login({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
   const [user, setUser] = useState({});
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCallbackResponse = (response) => {
     console.log("Encoded JWT ID token: " + response.credential);
     const userObject = jwt_decode(response.credential);
-    console.log(userObject)
-    setUser(userObject)
-  }
+    const requestOptions= {
+      method: 'POST',
+      headers: {
+          // 'Authorization': `Bearer ${response.Zi.accessToken}`,
+          'Content-Type': 'application/json',
+          // 'access_token': `${response.Zi.accessToken}`
+      },
+      body: JSON.stringify(userObject)
+    }
+
+    fetch(`/api/auth/google_oauth2/callback`, requestOptions)
+    .then((r) => {
+      setIsLoading(false);
+      if (r.ok) {
+        r.json().then((user) => onLogin(user));
+      } else {
+        r.json().then((err) => setErrors(err.errors));
+      }
+    });
+    
+}
 
     useEffect(() => {
     /* global google */
