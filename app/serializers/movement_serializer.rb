@@ -1,3 +1,4 @@
 class MovementSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :image_url, :description
+  
 end
