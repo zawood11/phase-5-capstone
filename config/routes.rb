@@ -1,13 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :friendships
-  resources :exercises
-  resources :workouts
-  resources :movements
-
-
-
   namespace :api do
+    resources :friendships
+    resources :exercises
+    resources :workouts
+    resources :movements
     resources :recipes, only: [:index, :create]
     post 'auth/:provider/callback', to: 'sessions#google_auth'
     post "/signup", to: "users#create"

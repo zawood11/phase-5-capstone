@@ -1,4 +1,4 @@
-class MovementsController < ApplicationController
+class Api::MovementsController < ApplicationController
   before_action :set_movement, only: [:show, :update, :destroy]
 
   # GET /movements
