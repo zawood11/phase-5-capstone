@@ -13,6 +13,11 @@ class Api::FriendshipsController < ApplicationController
     render json: @friendship
   end
 
+  def show_user_friends
+    @friendships = Friendship.where(requestor_id: params[:id])
+    render json: @friendships
+  end
+
   # POST /friendships
   def create
     @friendship = Friendship.create!(friendship_params)
