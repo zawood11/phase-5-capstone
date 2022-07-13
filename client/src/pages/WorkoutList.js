@@ -27,21 +27,23 @@ function WorkoutList() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             />
-    </FormField>    
+    </FormField>
+    <Button>All Workouts</Button>
+    &nbsp;·&nbsp;
+    <Button>My Workouts</Button>
+    &nbsp;·&nbsp;   
     <Button as={Link} to="/workouts/new">Add a Workout</Button>
+    
+    
       {filterWorkouts.length > 0 ? (
         filterWorkouts.map((workout) => (
           <Workout key={workout.id}>
             <Box>
-              <h1>{workout.user.username}</h1>
-              <h2>{workout.name}</h2>
-              {/* <p>
-                <em>Time to Complete: {movement.minutes_to_complete} minutes</em>
-                &nbsp;·&nbsp;
-                <cite>By {movement.user.username}</cite>
-              </p> */}
+              <h1><Link to = {`/users/${workout.user.id}`}>User: {workout.user.username}</Link></h1>
+              <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2>
+              <p>Minutes: {workout.minutes}</p>
+              <p>Calories: {workout.calories}</p>
               <ReactMarkdown>{workout.notes}</ReactMarkdown>
-              {/* <Button>Remove From Library</Button> */}
             </Box>
           </Workout>
         ))

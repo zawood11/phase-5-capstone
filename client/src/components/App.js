@@ -6,6 +6,7 @@ import RecipeList from "../pages/RecipeList";
 import NewRecipe from "../pages/NewRecipe";
 import WorkoutList from "../pages/WorkoutList";
 import NewWorkout from "../pages/NewWorkout";
+import WorkoutCard from "../pages/WorkoutCard";
 import MovementList from "../pages/MovementList";
 import NewMovement from "../pages/NewMovement";
 import {UserContext, UserProvider} from "../context/user";
@@ -39,6 +40,9 @@ function App() {
               </Route>
               <Route path="/workouts/new">
                 <NewWorkout />
+              </Route>
+              <Route path="/workouts/:id">
+                <WorkoutCard />
               </Route>
               <Route path="/">
                 <WorkoutList />
