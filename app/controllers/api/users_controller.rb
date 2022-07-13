@@ -17,6 +17,11 @@ class Api::UsersController < ApplicationController
     render json: @current_user
   end
 
+  def show_friend
+    @user = User.find(params[:id])
+    render json: @user
+  end
+
   def destroy
     @current_user.destroy
   end
