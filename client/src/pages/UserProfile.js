@@ -37,7 +37,7 @@ function UserProfile() {
     <Wrapper>
             <Box>
               <h1>{user.username}</h1>
-              <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2>
+              {/* <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2> */}
               <ReactMarkdown>{user.bio}</ReactMarkdown>
               <h2>Friends</h2>
               <Button onClick={deleteUser}>Delete User</Button>

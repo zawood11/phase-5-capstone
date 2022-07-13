@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     post 'auth/:provider/callback', to: 'sessions#google_auth'
     post "/signup", to: "users#create"
     get "/me", to: "users#show"
+    get "/users/:id", to: "users#show_friend"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     resources :users, only: [:index, :destroy]

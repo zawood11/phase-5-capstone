@@ -41,7 +41,7 @@ function WorkoutCard() {
               <p>Calories: {workout.calories}</p>
               <ReactMarkdown>{workout.notes}</ReactMarkdown>
               <h2>Exercises</h2>
-              <table width="100%">
+              <table style={{width:"100%", textAlign:"left"}}>
                 <thead>
                     <tr>
                         <th>Movement</th>
