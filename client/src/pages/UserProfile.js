@@ -10,7 +10,7 @@ function UserProfile() {
   const {id} = useParams();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-  const {user} = useContext(UserContext)
+  const {user, setUser} = useContext(UserContext)
 
 //   useEffect(() => {
 //     fetch(`/api/me`)
@@ -22,11 +22,11 @@ function UserProfile() {
 
 
   const deleteUser = () => {
-    fetch(`/api/users/${id}`, {
+    fetch(`/api/users/${user.id}`, {
         method: "DELETE",
       }).then((r) => {
         if (r.ok) {
-          history.push("/");
+            setUser(null)
         } else {
           r.json().then((err) => setErrors(err.errors))
         }
