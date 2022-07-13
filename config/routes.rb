@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     get "/workouts/user/:id", to: "workouts#workouts_user"
     resources :workouts
     resources :movements
-    resources :recipes, only: [:index, :create]
     post 'auth/:provider/callback', to: 'sessions#google_auth'
     post "/signup", to: "users#create"
     get "/me", to: "users#show"
