@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Box, Button } from "../styles";
+import { Box, Button, FormField, Input, Label } from "../styles";
 
 function MovementList() {
   // const {user} = useContext(UserContext)
   const [movements, setMovements] = useState([]);
+  const [search, setSearch] = useState("")
 
   useEffect(() => {
     fetch("/api/movements")
@@ -14,11 +15,22 @@ function MovementList() {
       .then(setMovements);
   }, []);
 
+  const filterMovements = movements.filter(movement => movement.name.toLowerCase().includes(search))
+
   return (
     <Wrapper>
+    <FormField>
+        <Label htmlFor = "search">Search</Label>
+        <Input
+            type="text"
+            id="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            />
+    </FormField>    
     <Button as={Link} to="/movements/new">Add a Movement</Button>
-      {movements.length > 0 ? (
-        movements.map((movement) => (
+      {filterMovements.length > 0 ? (
+        filterMovements.map((movement) => (
           <Movement key={movement.id}>
             <Box>
               <h2>{movement.name}</h2>
@@ -28,13 +40,14 @@ function MovementList() {
                 <cite>By {movement.user.username}</cite>
               </p> */}
               <ReactMarkdown>{movement.description}</ReactMarkdown>
+              {/* <Button>Remove From Library</Button> */}
             </Box>
           </Movement>
         ))
       ) : (
         <>
-          <h2>No Recipes Found</h2>
-          <Button as={Link} to="/new">
+          <h2>No Movements Found</h2>
+          <Button as={Link} to="/movements/new">
             Make a New Recipe
           </Button>
         </>
