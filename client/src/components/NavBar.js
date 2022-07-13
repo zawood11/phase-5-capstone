@@ -27,7 +27,7 @@ function NavBar() {
         <Button as={Link} to="/movements">
           Movement Library
         </Button>
-        <Button as={Link} to="/user/:id">
+        <Button as={Link} to="/me">
           Profile
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>

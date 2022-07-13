@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :workouts
-  has_many :friendships
+  has_many :workouts, dependent: :destroy
+  has_many :friendships, dependent: :destroy
   
   has_secure_password
 

@@ -43,7 +43,7 @@ function App() {
               <Route path="/workouts/:id">
                 <WorkoutCard />
               </Route>
-              <Route path="/user/:id">
+              <Route path="/me">
                 <UserProfile />
               </Route>
               <Route path="/">
