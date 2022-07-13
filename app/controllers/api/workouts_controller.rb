@@ -15,13 +15,8 @@ class Api::WorkoutsController < ApplicationController
 
   # POST /workouts
   def create
-    @workout = Workout.new(workout_params)
-
-    if @workout.save
-      render json: @workout, status: :created, location: @workout
-    else
-      render json: @workout.errors, status: :unprocessable_entity
-    end
+    @workout = Workout.create!(workout_params)
+    render json: @workout, status: :created
   end
 
   # PATCH/PUT /workouts/1
@@ -33,7 +28,7 @@ class Api::WorkoutsController < ApplicationController
     end
   end
 
-  # DELETE /workouts/1
+  # DELETE "/workouts/:id"
   def destroy
     @workout.destroy
   end

@@ -9,7 +9,7 @@ import NewWorkout from "../pages/NewWorkout";
 import WorkoutCard from "../pages/WorkoutCard";
 import MovementList from "../pages/MovementList";
 import NewMovement from "../pages/NewMovement";
-import {UserContext, UserProvider} from "../context/user";
+import {UserContext} from "../context/user";
 
 function App() {
   //const [user, setUser] = useState(null);
@@ -29,7 +29,7 @@ function App() {
   return (
     <>
     {/* <UserProvider> */}
-    <NavBar user={user} setUser={setUser}/>
+    <NavBar/>
         <main>
             <Switch>
               <Route path="/movements/new">

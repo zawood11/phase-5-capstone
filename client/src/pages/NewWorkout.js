@@ -1,31 +1,35 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
+import {UserContext} from "../context/user";
 
-function NewMovement({ user }) {
-  const [name, setName] = useState("Enter Movement Name Here");
-  const [imageUrl, setImageUrl] = useState("https://www.bodybuilding.com/images/2020/xdb/originals/xdb-81e-bench-press-m2-16x9.jpg");
-  const [description, setDescription] = useState(`## Here's how you perform the movement.
-  
-Enter description of the movement here...`);
+function NewWorkout() {
+  //const [userId, setUserId] = useState(null);
+  const [name, setName] = useState("Leg Day w/ Conditioning");
+  const [minutes, setMinutes] = useState("60");
+  const [calories, setCalories] = useState("300")
+  const [notes, setNotes] = useState(`Enter workout notes here...`)
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const { user, setUser } = useContext(UserContext)
 
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/api/movements", {
+    fetch("/api/workouts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        user_id: user.id,
         name,
-        image_url: imageUrl,
-        description,
+        minutes,
+        calories,
+        notes,
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -40,7 +44,7 @@ Enter description of the movement here...`);
   return (
     <Wrapper>
       <WrapperChild>
-        <h2>Add a Movement</h2>
+        <h2>Create a Workout</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
             <Label htmlFor="name">Name</Label>
@@ -52,26 +56,35 @@ Enter description of the movement here...`);
             />
           </FormField>
           <FormField>
-            <Label htmlFor="image_url">Image URL</Label>
+            <Label htmlFor="minutes">Minutes</Label>
             <Input
               type="text"
-              id="imageUrl"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              id="minutes"
+              value={minutes}
+              onChange={(e) => setMinutes(e.target.value)}
             />
           </FormField>
           <FormField>
-            <Label htmlFor="description">Instructions</Label>
+            <Label htmlFor="calories">Calories</Label>
+            <Input
+              type="text"
+              id="calories"
+              value={calories}
+              onChange={(e) => setCalories(e.target.value)}
+            />
+          </FormField>
+          <FormField>
+            <Label htmlFor="notes">Notes</Label>
             <Textarea
-              id="description"
+              id="notes"
               rows="10"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             />
           </FormField>
           <FormField>
             <Button color="primary" type="submit">
-              {isLoading ? "Loading..." : "Submit Movement to Library"}
+              {isLoading ? "Loading..." : "Create Workout"}
             </Button>
           </FormField>
           {/* <FormField>
@@ -84,11 +97,13 @@ Enter description of the movement here...`);
       <WrapperChild>
         <h1>{name}</h1>
         <p>
-          <em>Image: {imageUrl}</em>
+          <em>Minutes: {minutes}</em>
           &nbsp;·&nbsp;
-          {/* <cite>By {user.username}</cite> */}
+          <em>Calories: {calories}</em>
+          &nbsp;·&nbsp;
+          <cite>Created By: {user.username}</cite>
         </p>
-        <ReactMarkdown>{description}</ReactMarkdown>
+        <ReactMarkdown>{notes}</ReactMarkdown>
       </WrapperChild>
     </Wrapper>
   );
@@ -106,4 +121,4 @@ const WrapperChild = styled.div`
   flex: 1;
 `;
 
-export default NewMovement;
+export default NewWorkout;

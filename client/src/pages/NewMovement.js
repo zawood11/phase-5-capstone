@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
-function NewMovement({ user }) {
+function NewMovement() {
   const [name, setName] = useState("Enter Movement Name Here");
   const [imageUrl, setImageUrl] = useState("https://www.bodybuilding.com/images/2020/xdb/originals/xdb-81e-bench-press-m2-16x9.jpg");
   const [description, setDescription] = useState(`## Here's how you perform the movement.

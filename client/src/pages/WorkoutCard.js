@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button, FormField, Input, Label } from "../styles";
 
 function WorkoutCard() {
   const [workout, setWorkout] = useState({});
   const {id} = useParams();
-
+  const history = useHistory();
+  const [errors, setErrors] = useState([]);
+  
   useEffect(() => {
     fetch(`/api/workouts/${id}`)
       .then(res => res.json())
@@ -16,8 +18,22 @@ function WorkoutCard() {
 
   if (!workout.user || !workout.exercises) return <h1>Loading...</h1>
 
+
+  const deleteWorkout = () => {
+    fetch(`/workouts/${id}`, {
+        method: "DELETE",
+      }).then((r) => {
+        if (r.ok) {
+          history.push("/");
+        } else {
+          r.json().then((err) => setErrors(err.errors))
+        }
+      });
+  }
+
   return (
     <Wrapper>
+            <Button as={Link} to="/">Back to Workouts</Button>
             <Box>
               <h1><Link to = {`/users/${workout.user}`}>User: {workout.user.username}</Link></h1>
               <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2>
@@ -45,7 +61,7 @@ function WorkoutCard() {
                 ))}
                 </tbody>
               </table>
-              <Button>Delete Workout</Button>
+              <Button onClick={deleteWorkout}>Delete Workout</Button>
             </Box>
     </Wrapper>
   );
