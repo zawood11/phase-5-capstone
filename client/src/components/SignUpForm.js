@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/user";
 import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
+import { useHistory } from 'react-router-dom'
 
-function SignUpForm({ onLogin }) {
+function SignUpForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -9,6 +11,8 @@ function SignUpForm({ onLogin }) {
   const [bio, setBio] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const {user, setUser, onLogin} = useContext(UserContext);
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -29,7 +33,10 @@ function SignUpForm({ onLogin }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((data) => {
+          onLogin(data)
+          history.push("/")
+        });
       } else {
         r.json().then((err) => setErrors(err.errors));
       }

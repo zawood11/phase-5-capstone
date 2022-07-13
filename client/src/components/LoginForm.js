@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../context/user";
 import { Button, Error, Input, FormField, Label } from "../styles";
+import { useHistory } from 'react-router-dom';
 
-function LoginForm({ onLogin }) {
+function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const {user, setUser, onLogin, login} = useContext(UserContext);
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,8 +22,11 @@ function LoginForm({ onLogin }) {
       body: JSON.stringify({ username, password }),
     }).then((r) => {
       setIsLoading(false);
-      if (r.ok) {
-        r.json().then((user) => onLogin(user));
+      if (r.status === 200) {
+        r.json().then((data) => {
+          onLogin(data);
+          history.push("/")
+        })
       } else {
         r.json().then((err) => setErrors(err.errors));
       }

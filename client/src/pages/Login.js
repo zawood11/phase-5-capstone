@@ -1,18 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 import { Button } from "../styles";
 import jwt_decode from "jwt-decode";
+import {UserContext} from "../context/user";
 
 function Login({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
-  const [user, setUser] = useState({});
+  // const { user, setUser, onLogin } = useContext(UserContext)
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleCallbackResponse = (response) => {
-    console.log("Encoded JWT ID token: " + response.credential);
+    //console.log("Encoded JWT ID token: " + response.credential);
     const userObject = jwt_decode(response.credential);
     const requestOptions= {
       method: 'POST',
@@ -28,7 +29,7 @@ function Login({ onLogin }) {
     .then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((data) => onLogin(data));
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -52,13 +53,14 @@ function Login({ onLogin }) {
 
     
   }, []);
+
   return (
     <Wrapper>
       
       <Logo>Reciplease</Logo>
       {showLogin ? (
         <>
-          <LoginForm onLogin={onLogin} />
+          <LoginForm onLogin={onLogin}/>
           <div id="signInDiv"></div>
           <Divider />
           <p>
@@ -70,7 +72,7 @@ function Login({ onLogin }) {
         </>
       ) : (
         <>
-          <SignUpForm onLogin={onLogin} />
+          <SignUpForm />
           <Divider />
           <p>
             Already have an account? &nbsp;

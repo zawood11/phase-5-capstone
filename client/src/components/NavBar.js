@@ -1,13 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles";
+import {UserContext} from "../context/user";
 
-function NavBar({ user, setUser }) {
+function NavBar({user, setUser }) {
+  //const {user, setUser} = useContext(UserContext);
+
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
-        setUser(null);
+        setUser(null)
       }
     });
   }
@@ -20,6 +23,9 @@ function NavBar({ user, setUser }) {
       <Nav>
         <Button as={Link} to="/new">
           New Recipe
+        </Button>
+        <Button as={Link} to="/movements">
+          Movement Library
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout

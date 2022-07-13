@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { UserContext } from "../context/user";
 import { Box, Button } from "../styles";
 
 function RecipeList() {
+  // const {user} = useContext(UserContext)
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {

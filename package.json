@@ -11,8 +11,8 @@
     "heroku-postbuild": "npm run clean && npm run build && npm run deploy"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "gapi-script": "^1.2.0",
-    "jwt-decode": "^3.1.2",
-    "react-google-login": "^5.2.2"
+    "jwt-decode": "^3.1.2"
   }
 }
