@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import RecipeList from "../pages/RecipeList";
 import NewRecipe from "../pages/NewRecipe";
+import MovementList from "../pages/MovementList";
+import NewMovement from "../pages/NewMovement";
 import {UserContext, UserProvider} from "../context/user";
 
 function App() {
@@ -27,14 +29,11 @@ function App() {
     <NavBar user={user} setUser={setUser}/>
         <main>
             <Switch>
-              <Route path="/new">
-                <NewRecipe />
+              <Route path="/movements/new">
+                <NewMovement />
               </Route>
-              {/* <Route path="/movements">
-                <MovementList />
-              </Route> */}
               <Route path="/">
-                <RecipeList />
+                <MovementList />
               </Route>
             </Switch>
         </main>

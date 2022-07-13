@@ -46,6 +46,6 @@ class Api::FriendshipsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def friendship_params
-      params.fetch(:friendship, {})
+      params.permit(:requestor_id, :recipient_id, :status)
     end
 end

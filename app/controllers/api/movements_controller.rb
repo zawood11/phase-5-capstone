@@ -15,13 +15,8 @@ class Api::MovementsController < ApplicationController
 
   # POST /movements
   def create
-    @movement = Movement.new(movement_params)
-
-    if @movement.save
-      render json: @movement, status: :created, location: @movement
-    else
-      render json: @movement.errors, status: :unprocessable_entity
-    end
+    @movement = Movement.create!(movement_params)
+    render json: @movement, status: :created
   end
 
   # PATCH/PUT /movements/1
@@ -46,6 +41,6 @@ class Api::MovementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def movement_params
-      params.fetch(:movement, {})
+      params.permit(:name, :image_url, :description)
     end
 end

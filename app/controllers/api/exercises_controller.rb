@@ -46,6 +46,6 @@ class Api::ExercisesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def exercise_params
-      params.fetch(:exercise, {})
+      params.permit(:workout_id, :movement_id, :sets, :reps, :rest_interval)
     end
 end

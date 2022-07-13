@@ -46,6 +46,6 @@ class Api::WorkoutsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def workout_params
-      params.fetch(:workout, {})
+      params.permit(:user_id, :name, :minutes, :calories, :notes)
     end
 end
