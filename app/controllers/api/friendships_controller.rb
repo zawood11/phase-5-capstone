@@ -15,13 +15,8 @@ class Api::FriendshipsController < ApplicationController
 
   # POST /friendships
   def create
-    @friendship = Friendship.new(friendship_params)
-
-    if @friendship.save
-      render json: @friendship, status: :created, location: @friendship
-    else
-      render json: @friendship.errors, status: :unprocessable_entity
-    end
+    @friendship = Friendship.create!(friendship_params)
+    render json: @friendship, status: :created
   end
 
   # PATCH/PUT /friendships/1

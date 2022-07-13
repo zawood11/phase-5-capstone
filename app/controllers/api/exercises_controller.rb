@@ -15,13 +15,8 @@ class Api::ExercisesController < ApplicationController
 
   # POST /exercises
   def create
-    @exercise = Exercise.new(exercise_params)
-
-    if @exercise.save
-      render json: @exercise, status: :created, location: @exercise
-    else
-      render json: @exercise.errors, status: :unprocessable_entity
-    end
+    @exercise = Exercise.create!(exercise_params)
+    render json: @exercise, status: :created
   end
 
   # PATCH/PUT /exercises/1
