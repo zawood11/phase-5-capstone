@@ -4,6 +4,8 @@ import NavBar from "./NavBar";
 import Login from "../pages/Login";
 import RecipeList from "../pages/RecipeList";
 import NewRecipe from "../pages/NewRecipe";
+import WorkoutList from "../pages/WorkoutList";
+import NewWorkout from "../pages/NewWorkout";
 import MovementList from "../pages/MovementList";
 import NewMovement from "../pages/NewMovement";
 import {UserContext, UserProvider} from "../context/user";
@@ -32,8 +34,14 @@ function App() {
               <Route path="/movements/new">
                 <NewMovement />
               </Route>
-              <Route path="/">
+              <Route path="/movements">
                 <MovementList />
+              </Route>
+              <Route path="/workouts/new">
+                <NewWorkout />
+              </Route>
+              <Route path="/">
+                <WorkoutList />
               </Route>
             </Switch>
         </main>

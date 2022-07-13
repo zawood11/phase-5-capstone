@@ -47,9 +47,6 @@ function MovementList() {
       ) : (
         <>
           <h2>No Movements Found</h2>
-          <Button as={Link} to="/movements/new">
-            Make a New Recipe
-          </Button>
         </>
       )}
     </Wrapper>

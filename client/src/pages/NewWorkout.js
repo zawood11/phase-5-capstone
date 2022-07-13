@@ -30,7 +30,7 @@ Enter description of the movement here...`);
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        history.push("/movements");
+        history.push("/");
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
