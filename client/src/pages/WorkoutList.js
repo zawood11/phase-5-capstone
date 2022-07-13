@@ -33,8 +33,6 @@ function WorkoutList() {
     <Button>My Workouts</Button>
     &nbsp;·&nbsp;   
     <Button as={Link} to="/workouts/new">Add a Workout</Button>
-    
-    
       {filterWorkouts.length > 0 ? (
         filterWorkouts.map((workout) => (
           <Workout key={workout.id}>

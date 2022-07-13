@@ -5,32 +5,48 @@ import styled from "styled-components";
 import { Box, Button, FormField, Input, Label } from "../styles";
 
 function WorkoutCard() {
-  // const {user} = useContext(UserContext)
-  const [workout, setWorkout] = useState([]);
+  const [workout, setWorkout] = useState({});
   const {id} = useParams();
 
   useEffect(() => {
     fetch(`/api/workouts/${id}`)
-      .then((r) => r.json())
-      .then(setWorkout);
+      .then(res => res.json())
+      .then(data =>setWorkout(data))
   }, []);
 
-  //const filterWorkouts = workouts.filter(workout => workout.name.toLowerCase().includes(search) || workout.user.username.toLowerCase().includes(search))
+  if (!workout.user || !workout.exercises) return <h1>Loading...</h1>
 
   return (
     <Wrapper>
-
-          <Workout >
             <Box>
-              <h1><Link to = {`/users/${workout.user.id}`}>User: {workout.user.username}</Link></h1>
+              <h1><Link to = {`/users/${workout.user}`}>User: {workout.user.username}</Link></h1>
               <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2>
               <p>Minutes: {workout.minutes}</p>
               <p>Calories: {workout.calories}</p>
               <ReactMarkdown>{workout.notes}</ReactMarkdown>
               <h2>Exercises</h2>
+              <table width="100%">
+                <thead>
+                    <tr>
+                        <th>Movement</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Rest Interval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {workout.exercises.map(exercise => (
+                    <tr key={exercise.id}>
+                        <td>{exercise.movement_name}</td>
+                        <td>{exercise.sets}</td>
+                        <td>{exercise.reps}</td>
+                        <td>{exercise.rest_interval}</td>
+                    </tr>
+                ))}
+                </tbody>
+              </table>
               <Button>Delete Workout</Button>
             </Box>
-          </Workout>
     </Wrapper>
   );
 }
