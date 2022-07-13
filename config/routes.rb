@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   namespace :api do
+    get "/friendships/user/:id", to: "friendships#show_user_friends"
     resources :friendships
     resources :exercises
     get "/workouts/user/:id", to: "workouts#workouts_user"

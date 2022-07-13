@@ -34,6 +34,10 @@ function FriendProfile() {
     //   });
   }
 
+  const addFriend = () => {
+
+  }
+
   return (
     <Wrapper>
             <Box>
@@ -41,6 +45,8 @@ function FriendProfile() {
               {/* <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2> */}
               <ReactMarkdown>{friend.bio}</ReactMarkdown>
               <h2>Friends</h2>
+              <Button onClick={addFriend}>Send Friend Request</Button>
+              &nbsp;·&nbsp;
               <Button onClick={removeFriend}>Remove Friend</Button>
             </Box>
     </Wrapper>
