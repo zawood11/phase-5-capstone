@@ -9,7 +9,7 @@ function WorkoutCard() {
   const {id} = useParams();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-  
+
   useEffect(() => {
     fetch(`/api/workouts/${id}`)
       .then(res => res.json())
@@ -20,7 +20,7 @@ function WorkoutCard() {
 
 
   const deleteWorkout = () => {
-    fetch(`/workouts/${id}`, {
+    fetch(`/api/workouts/${id}`, {
         method: "DELETE",
       }).then((r) => {
         if (r.ok) {
