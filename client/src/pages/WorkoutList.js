@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button, FormField, Input, Label } from "../styles";
+import {UserContext} from "../context/user";
 
 function WorkoutList() {
-  // const {user} = useContext(UserContext)
+  const {user} = useContext(UserContext)
   const [workouts, setWorkouts] = useState([]);
   const [search, setSearch] = useState("")
 
@@ -14,6 +15,19 @@ function WorkoutList() {
       .then((r) => r.json())
       .then(setWorkouts);
   }, []);
+
+  
+  const renderAllWorkouts = () => {
+    fetch("/api/workouts")
+    .then((r) => r.json())
+    .then(setWorkouts);
+  }
+
+  const renderUserWorkouts = () => {
+    fetch(`/api/workouts/user/${user.id}`)
+    .then((r) => r.json())
+    .then(setWorkouts);
+  }
 
   const filterWorkouts = workouts.filter(workout => workout.name.toLowerCase().includes(search) || workout.user.username.toLowerCase().includes(search))
 
@@ -28,9 +42,9 @@ function WorkoutList() {
             onChange={(e) => setSearch(e.target.value)}
             />
     </FormField>
-    <Button>All Workouts</Button>
+    <Button onClick={renderAllWorkouts}>All Workouts</Button>
     &nbsp;·&nbsp;
-    <Button>My Workouts</Button>
+    <Button onClick={renderUserWorkouts}>My Workouts</Button>
     &nbsp;·&nbsp;   
     <Button as={Link} to="/workouts/new">Add a Workout</Button>
       {filterWorkouts.length > 0 ? (

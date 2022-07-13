@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :friendships
     resources :exercises
+    get "/workouts/user/:id", to: "workouts#workouts_user"
     resources :workouts
     resources :movements
     resources :recipes, only: [:index, :create]

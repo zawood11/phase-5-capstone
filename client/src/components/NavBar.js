@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Button } from "../styles";
 import {UserContext} from "../context/user";
 
-function NavBar({user, setUser }) {
-  //const {user, setUser} = useContext(UserContext);
+function NavBar() {
+  const {user, setUser} = useContext(UserContext);
 
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
@@ -21,11 +21,14 @@ function NavBar({user, setUser }) {
         <Link to="/">Hammer Fitness</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
-          New Recipe
+        <Button as={Link} to="/">
+          Workouts
         </Button>
         <Button as={Link} to="/movements">
           Movement Library
+        </Button>
+        <Button as={Link} to="/user/:id">
+          Profile
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout

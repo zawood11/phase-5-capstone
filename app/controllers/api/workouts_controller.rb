@@ -13,6 +13,12 @@ class Api::WorkoutsController < ApplicationController
     render json: @workout
   end
 
+  # GET /workouts/user/1
+  def workouts_user 
+    @workouts = Workout.where(user_id: params[:id])
+    render json: @workouts
+  end
+
   # POST /workouts
   def create
     @workout = Workout.create!(workout_params)
