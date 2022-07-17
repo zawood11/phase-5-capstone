@@ -11,12 +11,13 @@ function UserProfile() {
   const history = useHistory();
   const [errors, setErrors] = useState([]);
   const {user, setUser} = useContext(UserContext)
+  const [friends, setFriends] = useState({})
 
-//   useEffect(() => {
-//     fetch(`/api/me`)
-//       .then(res => res.json())
-//       .then(data =>setWorkout(data))
-//   }, []);
+  useEffect(() => {
+    fetch(`/api/friendships/user/${user.id}`)
+      .then(res => res.json())
+      .then(data =>setFriends(data))
+  }, []);
 
 //   if (!workout.user || !workout.exercises) return <h1>Loading...</h1>
 
@@ -38,8 +39,20 @@ function UserProfile() {
             <Box>
               <h1>{user.username}</h1>
               {/* <h2><Link to = {`/workouts/${workout.id}`}>{workout.name}</Link></h2> */}
+              <h2>Bio:</h2>
               <ReactMarkdown>{user.bio}</ReactMarkdown>
               <h2>Friends</h2>
+                {friends.length > 0? (
+                    friends.map((friend) => (
+                        <Friend key={friend.id}>
+                            <p>{friend.friend_name}</p>
+                        </Friend>
+                    ))
+                ) : (
+                    <>
+                    <h2>No Friends Found</h2>
+                    </>
+                )}
               <Button onClick={deleteUser}>Delete User</Button>
             </Box>
     </Wrapper>
@@ -51,7 +64,7 @@ const Wrapper = styled.section`
   margin: 40px auto;
 `;
 
-const Workout = styled.article`
+const Friend = styled.article`
   margin-bottom: 24px;
 `;
 

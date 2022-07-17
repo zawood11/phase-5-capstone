@@ -10,6 +10,7 @@ import NewMovement from "../pages/NewMovement";
 import UserProfile from "../pages/UserProfile";
 import {UserContext} from "../context/user";
 import FriendProfile from "../pages/FriendProfile";
+import EditWorkout from "../pages/EditWorkout";
 
 function App() {
   //const [user, setUser] = useState(null);
@@ -40,6 +41,9 @@ function App() {
               </Route>
               <Route path="/workouts/new">
                 <NewWorkout />
+              </Route>
+              <Route path="/workouts/edit/:id">
+                <EditWorkout />
               </Route>
               <Route path="/workouts/:id">
                 <WorkoutCard />

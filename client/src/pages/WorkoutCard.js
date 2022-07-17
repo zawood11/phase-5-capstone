@@ -61,7 +61,7 @@ function WorkoutCard() {
                 ))}
                 </tbody>
               </table>
-              <Button onClick={deleteWorkout}>Delete Workout</Button>
+              <Button as={Link} to={`/workouts/edit/${workout.id}`}>Edit Workout</Button>&nbsp;·&nbsp;<Button onClick={deleteWorkout}>Delete Workout</Button>
             </Box>
     </Wrapper>
   );
